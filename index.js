@@ -26,6 +26,26 @@ const deepCopy = (object) => {
     return new Blob([object], { type: object.type });
   }
 
+  if (object instanceof Map) {
+    const copy = new Map();
+
+    object.forEach((value, key) => {
+      copy.set(key, deepCopy(value));
+    });
+
+    return copy;
+  }
+
+  if (object instanceof Set) {
+    const copy = new Set();
+
+    object.forEach((value) => {
+      copy.add(deepCopy(value));
+    });
+
+    return copy;
+  }
+
   if (Array.isArray(object)) {
     const copy = [];
 
