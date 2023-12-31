@@ -60,3 +60,5 @@ const deepCopy = (target) => {
 
   return copy;
 };
+
+export default deepCopy;
