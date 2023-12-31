@@ -47,13 +47,7 @@ const deepCopy = (target) => {
   }
 
   if (Array.isArray(target)) {
-    const copy = [];
-
-    for (let i = 0; i < target.length; i++) {
-      copy[i] = deepCopy(target[i]);
-    }
-
-    return copy;
+    return target.map((item) => deepCopy(item));
   }
 
   if (target instanceof Object) {
