@@ -1,67 +1,67 @@
-const deepCopy = (object) => {
-  if (object === null || typeof object !== "object") {
-    return object;
+const deepCopy = (target) => {
+  if (target === null || typeof target !== "object") {
+    return target;
   }
 
-  if (object instanceof Date) {
-    return new Date(object.getTime());
+  if (target instanceof Date) {
+    return new Date(target.getTime());
   }
 
-  if (object instanceof RegExp) {
-    return new RegExp(object);
+  if (target instanceof RegExp) {
+    return new RegExp(target);
   }
 
-  if (object instanceof Node) {
-    return object.cloneNode(true);
+  if (target instanceof Node) {
+    return target.cloneNode(true);
   }
 
-  if (object instanceof File) {
-    return new File([object.slice(0, object.size, object.type)], object.name, {
-      type: object.type,
-      lastModified: object.lastModified
+  if (target instanceof File) {
+    return new File([target.slice(0, target.size, target.type)], target.name, {
+      type: target.type,
+      lastModified: target.lastModified
     });
   }
 
-  if (object instanceof Blob) {
-    return new Blob([object], { type: object.type });
+  if (target instanceof Blob) {
+    return new Blob([target], { type: target.type });
   }
 
-  if (object instanceof Map) {
+  if (target instanceof Map) {
     const copy = new Map();
 
-    object.forEach((value, key) => {
+    target.forEach((value, key) => {
       copy.set(key, deepCopy(value));
     });
 
     return copy;
   }
 
-  if (object instanceof Set) {
+  if (target instanceof Set) {
     const copy = new Set();
 
-    object.forEach((value) => {
+    target.forEach((value) => {
       copy.add(deepCopy(value));
     });
 
     return copy;
   }
 
-  if (Array.isArray(object)) {
+  if (Array.isArray(target)) {
     const copy = [];
 
-    for (let i = 0; i < object.length; i++) {
-      copy[i] = deepCopy(object[i]);
+    for (let i = 0; i < target.length; i++) {
+      copy[i] = deepCopy(target[i]);
     }
 
     return copy;
   }
 
-  if (object instanceof Object) {
-    const copy = Object.create(Object.getPrototypeOf(object));
+  if (target instanceof Object) {
+    const copy = Object.create(Object.getPrototypeOf(target));
 
-    for (const key in object) {
-      if (object.hasOwnProperty(key)) {
-        copy[key] = deepCopy(object[key]);
+    for (const key in target) {
+      if (target.hasOwnProperty(key)) {
+        copy[key] = deepCopy(target[key]);
       }
     }
 
