@@ -50,15 +50,13 @@ const deepCopy = (target) => {
     return target.map((item) => deepCopy(item));
   }
 
-  if (target instanceof Object) {
-    const copy = Object.create(Object.getPrototypeOf(target));
+  const copy = Object.create(Object.getPrototypeOf(target));
 
-    for (const key in target) {
-      if (target.hasOwnProperty(key)) {
-        copy[key] = deepCopy(target[key]);
-      }
+  for (const key in target) {
+    if (target.hasOwnProperty(key)) {
+      copy[key] = deepCopy(target[key]);
     }
-
-    return copy;
   }
+
+  return copy;
 };
