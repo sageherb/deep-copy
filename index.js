@@ -3,6 +3,10 @@ const deepCopy = (target) => {
     return target;
   }
 
+  if (typeof target === "function") {
+    return target.bind();
+  }
+
   if (target instanceof Date) {
     return new Date(target.getTime());
   }
@@ -44,6 +48,10 @@ const deepCopy = (target) => {
     });
 
     return copy;
+  }
+
+  if (target instanceof Error) {
+    return new Error(target.message);
   }
 
   if (Array.isArray(target)) {

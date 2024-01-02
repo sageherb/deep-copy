@@ -140,3 +140,23 @@ test("Object 타입 복사 확인", () => {
   expect(copiedObject.d).toStrictEqual(object.d);
   expect(copiedObject.e).toStrictEqual(object.e);
 });
+
+test("Function 타입 복사 확인", () => {
+  const add = (a, b) => { a + b };
+  const copiedAdd = deepCopy(add);
+
+  expect(copiedAdd).toBeInstanceOf(Function);
+  expect(copiedAdd).toStrictEqual(add);
+  expect(copiedAdd(1, 2)).toEqual(add(1, 2));
+  expect(copiedAdd(3, 4)).toEqual(add(3, 4));
+});
+
+test("Error 타입 복사 확인", () => {
+  const error = new Error("Error Test");
+  const copiedError = deepCopy(error);
+
+  expect(copiedError).toBeInstanceOf(Error);
+  expect(copiedError).not.toBe(error);
+  expect(copiedError).toStrictEqual(error);
+  expect(copiedError.message).toEqual(error.message);
+});
